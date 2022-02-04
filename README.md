@@ -1,1 +1,3 @@
-# Gartner-Hype-Cycle
+Gartner’s Hype Cycle is a popular maturity model to gauge the adoption of emerging technologies. Each year Gartner Inc. releases 90-100 of these hype cycles for relevant innovations. However, Gartner’s Hype Cycle has not been empirically validated. 
+
+This repository contains the code used to investigate this problem in fulfillment of my masters degree. I propose the use of various machine learning sentiment classifiers, to classify Twitter posts and Academic abstracts into positive, negative and neutral sentiment categories. Once the sentiment of the input data has been determined, this will then be combined with relative post frequency to generate a “hype-metric” which can be plotted over time. The resulting plots will be compared to Gartner’s Hype Cycle in an attempt to empirically validate the maturity model.
