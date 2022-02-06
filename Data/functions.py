@@ -1,50 +1,29 @@
-# For sending GET requests from the API
 import requests
-# For saving access tokens and for file management when creating and adding to the dataset
-import os
-# For dealing with json responses we receive from the API
-import json
-# For displaying the data after
-import pandas as pd
-# For saving the response data in CSV format
-import csv
-# For parsing the dates received from twitter in readable formats
-import datetime
-import dateutil.parser
-import unicodedata
-#To add wait time between requests
-import time
+import re
+from datetime import datetime
 from configs import *
 
 
-''' Use this function when storing bearer token as environment variable'''
-# def auth():
-#     return os.getenv('TOKEN')
-
+def time_convert(time):
+    time = time.replace(" ", "T")
+    time += 'Z'
+    return time
 
 def create_headers(bearer_token):
     headers = {"Authorization": "Bearer {}".format(bearer_token)}
     return headers
 
-
-
-'''Queries can be as simple as searching for tweets containing the word “xbox” or as complex as “(xbox europe) OR (xbox usa)” which will return tweets that contain the words xbox AND europe or xbox AND usa.'''
-
 def create_url(keyword, start_date, end_date, max_results = 10):
-    
-    
     # search_url = "https://api.twitter.com/2/tweets/search/all" #Change to the endpoint you want to collect data from
     search_url = "https://api.twitter.com/2/tweets/search/recent" #Change to the endpoint you want to collect data from
 
-    #change params based on the endpoint you are using
+    keyword += ' -is:retweet -is:reply'
+
     query_params = {'query': keyword,
                     'start_time': start_date,
                     'end_time': end_date,
                     'max_results': max_results,
-                    'expansions': 'author_id,in_reply_to_user_id,geo.place_id',
-                    'tweet.fields': 'id,text,author_id,in_reply_to_user_id,geo,conversation_id,created_at,lang,public_metrics,referenced_tweets,reply_settings,source',
-                    'user.fields': 'id,name,username,created_at,description,public_metrics,verified',
-                    'place.fields': 'full_name,id,country,country_code,geo,name,place_type',
+                    'tweet.fields': 'id,text,created_at,public_metrics',
                     'next_token': {}}
     return (search_url, query_params)
 
@@ -55,3 +34,15 @@ def connect_to_endpoint(url, headers, params, next_token = None):
     if response.status_code != 200:
         raise Exception(response.status_code, response.text)
     return response.json()
+
+def cleanTxt(text):
+    text = re.sub(r'@[A-Za-z0-9]+', '', text) #removes mentions
+    text = re.sub(r'#', '', text) #removes hashtags
+    text = re.sub(r'RT[\s]+', '', text) #removes retweet symbol from start
+    text = re.sub(r'https?:\/\/\S+', '', text) #removes links
+    text = re.sub(r'[^\w\s]', '', text) #removes all punctuation
+    text = text.lower() #converts all to lower
+    return text
+
+def deEmojify(text):
+    return text.encode('ascii', 'ignore').decode('ascii')
