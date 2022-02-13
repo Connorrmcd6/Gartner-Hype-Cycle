@@ -46,3 +46,9 @@ def cleanTxt(text):
 
 def deEmojify(text):
     return text.encode('ascii', 'ignore').decode('ascii')
+
+
+def telegram_bot_sendtext(bot_message, chat_id):
+    send_text = 'https://api.telegram.org/bot' + telegram_api_key + '/sendMessage?chat_id=' + chat_id + '&parse_mode=MarkdownV2&text=' + bot_message
+    response = requests.get(send_text)
+    return response.json()
