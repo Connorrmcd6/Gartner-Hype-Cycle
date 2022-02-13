@@ -11,18 +11,34 @@ cnxn = mysql.connector.connect(host = ip, user = user, password = passwd, databa
 #Inputs for the request
 bearer_token = bearer_token
 headers = create_headers(bearer_token)
-# keyword = "machine learning lang:en"
 keyword = "machine learning lang:en"
-# start_time = time_convert('2022-01-31 00:00:00') #(ISO 8601/RFC 3339)
-# end_time =  time_convert('2022-02-03 00:00:00')
-start_list =    ['2021-12-01T00:00:00.000Z',
-                 '2022-01-01T00:00:00.000Z',
-                 '2022-02-01T00:00:00.000Z']
 
-end_list =      ['2021-12-31T00:00:00.000Z',
-                 '2022-01-31T00:00:00.000Z',
-                 '2022-02-07T00:00:00.000Z']
-max_results = 100
+start_list =    ['2010-01-01T00:00:00.000Z',
+                 '2010-02-01T00:00:00.000Z',
+                 '2010-03-01T00:00:00.000Z',
+                 '2010-04-01T00:00:00.000Z',
+                 '2010-05-01T00:00:00.000Z',
+                 '2010-06-01T00:00:00.000Z',
+                 '2010-07-01T00:00:00.000Z',
+                 '2010-08-01T00:00:00.000Z',
+                 '2010-09-01T00:00:00.000Z',
+                 '2010-10-01T00:00:00.000Z',
+                 '2010-11-01T00:00:00.000Z',
+                 '2010-12-01T00:00:00.000Z',]
+
+end_list =    ['2010-01-31T00:00:00.000Z',
+                 '2010-02-28T00:00:00.000Z',
+                 '2010-03-31T00:00:00.000Z',
+                 '2010-04-30T00:00:00.000Z',
+                 '2010-05-31T00:00:00.000Z',
+                 '2010-06-30T00:00:00.000Z',
+                 '2010-07-31T00:00:00.000Z',
+                 '2010-08-31T00:00:00.000Z',
+                 '2010-09-30T00:00:00.000Z',
+                 '2010-10-31T00:00:00.000Z',
+                 '2010-11-30T00:00:00.000Z',
+                 '2010-12-31T00:00:00.000Z',]
+max_results = 500
 
 
 #Total number of tweets we collected from the loop
@@ -35,7 +51,7 @@ for i in range(0, len(start_list)):
 
     # Inputs
     count = 0 # Counting tweets per time period
-    max_count = 1000 # Max tweets per time period
+    max_count = 75000 # Max tweets per time period
     flag = True
     next_token = None
 
@@ -91,7 +107,7 @@ for i in range(0, len(start_list)):
                 total_tweets += result_count
                 print("Total # of Tweets added: ", total_tweets)
                 print("-------------------")
-                time.sleep(5)                
+                time.sleep(20)                
         # If no next token exists
         else:
             if result_count is not None and result_count > 0:
@@ -132,11 +148,11 @@ for i in range(0, len(start_list)):
                 total_tweets += result_count
                 print("Total # of Tweets added: ", total_tweets)
                 print("-------------------")
-                time.sleep(5)
+                time.sleep(20)
             
             #Since this is the final request, turn flag to false to move to the next time period.
             flag = False
             next_token = None
-        time.sleep(5)
+        time.sleep(20)
 print("Total number of results: ", total_tweets)
 
