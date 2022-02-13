@@ -5,8 +5,8 @@ import mysql.connector
 import time
 from functions import *
 
-engine = create_engine('mysql+mysqlconnector://'+user+':'+passwd+'@'+ip+':3306/'+schema)
-cnxn = mysql.connector.connect(host = ip, user = user, password = passwd, database = schema)
+engine = create_engine('mysql+mysqlconnector://'+user+':'+passwd+'@'+ip+':3306/'+schema1)
+cnxn = mysql.connector.connect(host = ip, user = user, password = passwd, database = schema1)
 
 #Inputs for the request
 bearer_token = bearer_token
@@ -15,14 +15,14 @@ headers = create_headers(bearer_token)
 keyword = "machine learning lang:en"
 # start_time = time_convert('2022-01-31 00:00:00') #(ISO 8601/RFC 3339)
 # end_time =  time_convert('2022-02-03 00:00:00')
-start_list =    ['2022-01-31T00:00:00.000Z',
-                 '2022-02-02T00:00:00.000Z',
-                 '2022-02-04T00:00:00.000Z']
+start_list =    ['2021-12-01T00:00:00.000Z',
+                 '2022-01-01T00:00:00.000Z',
+                 '2022-02-01T00:00:00.000Z']
 
-end_list =      ['2022-02-01T00:00:00.000Z',
-                 '2022-02-03T00:00:00.000Z',
-                 '2022-02-05T00:00:00.000Z']
-max_results = 10
+end_list =      ['2021-12-31T00:00:00.000Z',
+                 '2022-01-31T00:00:00.000Z',
+                 '2022-02-07T00:00:00.000Z']
+max_results = 100
 
 
 #Total number of tweets we collected from the loop
@@ -35,7 +35,7 @@ for i in range(0, len(start_list)):
 
     # Inputs
     count = 0 # Counting tweets per time period
-    max_count = 100 # Max tweets per time period
+    max_count = 1000 # Max tweets per time period
     flag = True
     next_token = None
 

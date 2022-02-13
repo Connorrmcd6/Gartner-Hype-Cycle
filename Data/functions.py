@@ -14,8 +14,8 @@ def create_headers(bearer_token):
     return headers
 
 def create_url(keyword, start_date, end_date, max_results = 10):
-    # search_url = "https://api.twitter.com/2/tweets/search/all" #Change to the endpoint you want to collect data from
-    search_url = "https://api.twitter.com/2/tweets/search/recent" #Change to the endpoint you want to collect data from
+    search_url = "https://api.twitter.com/2/tweets/search/all" #Change to the endpoint you want to collect data from
+    # search_url = "https://api.twitter.com/2/tweets/search/recent" #Change to the endpoint you want to collect data from
 
     keyword += ' -is:retweet -is:reply'
 
