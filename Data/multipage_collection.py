@@ -1,5 +1,4 @@
 import json
-from xml.dom.pulldom import START_DOCUMENT
 import pandas as pd
 from sqlalchemy import create_engine
 import mysql.connector
