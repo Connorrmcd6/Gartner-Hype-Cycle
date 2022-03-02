@@ -5,7 +5,6 @@ from wordcloud import WordCloud
 from textblob import TextBlob
 
 
-
 def base_subjectivity(text):
     return TextBlob(text).sentiment.subjectivity
 
@@ -35,3 +34,4 @@ def sentibar(df):
     plt.ylabel('counts')
     df['sentiment'].value_counts().plot(kind='bar')
     plt.show()
+
