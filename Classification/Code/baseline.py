@@ -1,19 +1,22 @@
 from functions import *
-from sqlalchemy import create_engine, false
+from sqlalchemy import create_engine
 from db_config import *
 
+
+table = 'machine_learning'
+classifier_name = 'base'
+start_date = '2021-01-01'
+end_date = '2021-12-31'
+
 engine = create_engine('mysql+mysqlconnector://'+ user + ':' + passwd + '@' + ip + ':3306/' + schema1)
-df = pd.read_sql('SELECT * FROM short_ml', engine)
+df = pd.read_sql(f'SELECT * FROM {table} WHERE date >= \'{start_date}\' AND date <= \'{end_date}\'', engine)
 
 df['polarity'] = df['text'].apply(base_polarity)
 df['sentiment'] = df['polarity'].apply(base_sentiment)
 
-wordcloud(df)
 
-sentibar(df)
+sentiment = df.iloc[:, [0,-1]]
 
-# short_sentiment = df.iloc[:, [0,8]]
-
-# short_sentiment.to_sql('base_sentiment' , con=engine, if_exists='append', index=false, chunksize=20000)
+sentiment.to_sql(f'{classifier_name}_sentiment' , con=engine, if_exists='append', index=False, chunksize=20000)
 
 print('done')

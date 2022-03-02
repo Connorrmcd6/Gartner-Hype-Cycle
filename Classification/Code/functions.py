@@ -11,14 +11,13 @@ def base_subjectivity(text):
 def base_polarity(text):
     return TextBlob(text).sentiment.polarity
 
-
 def base_sentiment(score):
     if score < 0:
-        return 'negative'
+        return 0
     if score == 0:
-        return 'neutral'
+        return 1
     if score > 0:
-        return 'positive'
+        return 2
 
 def wordcloud(df):
     allwords = ' '.join([tweets for tweets in df['text']]) 
