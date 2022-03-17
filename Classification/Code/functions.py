@@ -16,6 +16,8 @@ from sklearn.metrics import accuracy_score
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
+from xgboost import XGBClassifier as XGBoostClassifier
+
 
 
 def base_subjectivity(text):
@@ -73,12 +75,12 @@ def preprocess_tweet_text(tweet):
     tweet_tokens = word_tokenize(tweet)
     filtered_words = [w for w in tweet_tokens if not w in stop_words]
     
-    # ps = PorterStemmer()
-    # stemmed_words = [ps.stem(w) for w in filtered_words]
+    ps = PorterStemmer()
+    filtered_words2 = [ps.stem(w) for w in filtered_words]
     # lemmatizer = WordNetLemmatizer()
-    # lemma_words = [lemmatizer.lemmatize(w, pos='a') for w in stemmed_words]
+    # filtered_words = [lemmatizer.lemmatize(w, pos='a') for w in filtered_words]
     
-    return " ".join(filtered_words)
+    return " ".join(filtered_words2)
 
 def get_feature_vector(train_fit):
     vector = TfidfVectorizer(sublinear_tf=True)
