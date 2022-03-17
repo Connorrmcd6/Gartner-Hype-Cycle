@@ -62,7 +62,7 @@ def remove_unwanted_cols(dataset, cols):
     return dataset
 
 def preprocess_tweet_text(tweet):
-    tweet.lower()
+    tweet = tweet.lower()
     # Remove urls
     tweet = re.sub(r"http\S+|www\S+|https\S+", '', tweet, flags=re.MULTILINE)
     # Remove user @ references and '#' from tweet
@@ -73,10 +73,10 @@ def preprocess_tweet_text(tweet):
     tweet_tokens = word_tokenize(tweet)
     filtered_words = [w for w in tweet_tokens if not w in stop_words]
     
-    ps = PorterStemmer()
-    stemmed_words = [ps.stem(w) for w in filtered_words]
-    lemmatizer = WordNetLemmatizer()
-    lemma_words = [lemmatizer.lemmatize(w, pos='a') for w in stemmed_words]
+    # ps = PorterStemmer()
+    # stemmed_words = [ps.stem(w) for w in filtered_words]
+    # lemmatizer = WordNetLemmatizer()
+    # lemma_words = [lemmatizer.lemmatize(w, pos='a') for w in stemmed_words]
     
     return " ".join(filtered_words)
 
