@@ -3,20 +3,29 @@ import numpy as np
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 from textblob import TextBlob
+from sklearn.utils import shuffle
 import re
+import nltk
+import time
+import warnings
+warnings.filterwarnings("ignore")
+from nltk.corpus import stopwords
+from nltk.stem.porter import PorterStemmer
+from nltk.stem import LancasterStemmer
+from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import LabelEncoder
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics import confusion_matrix, accuracy_score, classification_report
+from sklearn.linear_model import LogisticRegression
+from sklearn.naive_bayes import MultinomialNB, BernoulliNB
+import xgboost as xgb
+from sklearn.svm import LinearSVC
+from lightgbm import LGBMClassifier
 import string
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
-from nltk.stem import PorterStemmer
-from nltk.stem import WordNetLemmatizer
-# ML Libraries
-from sklearn.metrics import accuracy_score
-from sklearn.naive_bayes import MultinomialNB
-from sklearn.linear_model import LogisticRegression
-from sklearn.svm import SVC
-from xgboost import XGBClassifier as XGBoostClassifier
 
 
 
@@ -92,3 +101,13 @@ def convert_sent(sentiment):
         return 1
     elif sentiment == 4:
         return 2
+
+def preprocess(text):
+    review = re.sub('[^a-zA-Z]',' ',text) 
+    review = review.lower()
+    review = review.split()
+    ps = LancasterStemmer()
+    all_stopwords = stopwords.words('english')
+    all_stopwords.remove('not')
+    review = [ps.stem(word) for word in review if not word in set(all_stopwords)]
+    return ' '.join(review)
