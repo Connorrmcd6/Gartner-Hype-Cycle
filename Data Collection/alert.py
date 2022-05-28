@@ -4,8 +4,8 @@ from functions import *
 cnxn = mysql.connector.connect(host = ip, user = user, password = passwd, database = schema1)
 
 cursor = cnxn.cursor()
-statement1 = 'SELECT COUNT(1) FROM social.machine_learning;'
-statement1b = 'SELECT MAX(date) FROM social.machine_learning;'
+statement1 = 'SELECT COUNT(1) FROM social.five_g;'
+statement1b = 'SELECT MAX(date) FROM social.five_g;'
 cursor.execute(statement1)
 new_count = cursor.fetchone()[0]
 

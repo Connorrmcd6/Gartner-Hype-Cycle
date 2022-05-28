@@ -11,33 +11,33 @@ cnxn = mysql.connector.connect(host = ip, user = user, password = passwd, databa
 #Inputs for the request
 bearer_token = bearer_token
 headers = create_headers(bearer_token)
-keyword = "machine learning lang:en"
+keyword = "\"5g\" OR \"5G\" lang:en"
 
-start_list =    ['2021-01-01T00:00:00.000Z',
-                 '2021-02-01T00:00:00.000Z',
-                 '2021-03-01T00:00:00.000Z',
-                 '2021-04-01T00:00:00.000Z',
-                 '2021-05-01T00:00:00.000Z',
-                 '2021-06-01T00:00:00.000Z',
-                 '2021-07-01T00:00:00.000Z',
-                 '2021-08-01T00:00:00.000Z',
-                 '2021-09-01T00:00:00.000Z',
-                 '2021-10-01T00:00:00.000Z',
-                 '2021-11-01T00:00:00.000Z',
-                 '2021-12-01T00:00:00.000Z']
+start_list =    ['2010-01-01T00:00:00.000Z',
+                 '2010-02-01T00:00:00.000Z',
+                 '2010-03-01T00:00:00.000Z',
+                 '2010-04-01T00:00:00.000Z',
+                 '2010-05-01T00:00:00.000Z',
+                 '2010-06-01T00:00:00.000Z',
+                 '2010-07-01T00:00:00.000Z',
+                 '2010-08-01T00:00:00.000Z',
+                 '2010-09-01T00:00:00.000Z',
+                 '2010-10-01T00:00:00.000Z',
+                 '2010-11-01T00:00:00.000Z',
+                 '2010-12-01T00:00:00.000Z']
 
-end_list =    ['2021-01-31T00:00:00.000Z',
-                 '2021-02-28T00:00:00.000Z',
-                 '2021-03-31T00:00:00.000Z',
-                 '2021-04-30T00:00:00.000Z',
-                 '2021-05-31T00:00:00.000Z',
-                 '2021-06-30T00:00:00.000Z',
-                 '2021-07-31T00:00:00.000Z',
-                 '2021-08-31T00:00:00.000Z',
-                 '2021-09-30T00:00:00.000Z',
-                 '2021-10-31T00:00:00.000Z',
-                 '2021-11-30T00:00:00.000Z',
-                 '2021-12-31T00:00:00.000Z']
+end_list =    ['2010-01-31T00:00:00.000Z',
+                 '2010-02-28T00:00:00.000Z',
+                 '2010-03-31T00:00:00.000Z',
+                 '2010-04-30T00:00:00.000Z',
+                 '2010-05-31T00:00:00.000Z',
+                 '2010-06-30T00:00:00.000Z',
+                 '2010-07-31T00:00:00.000Z',
+                 '2010-08-31T00:00:00.000Z',
+                 '2010-09-30T00:00:00.000Z',
+                 '2010-10-31T00:00:00.000Z',
+                 '2010-11-30T00:00:00.000Z',
+                 '2010-12-31T00:00:00.000Z']
 max_results = 500
 
 
@@ -101,7 +101,7 @@ for i in range(0, len(start_list)):
 
                 df = pd.DataFrame.from_dict(db_insert)
 
-                df.to_sql('machine_learning', con=engine, if_exists='append', index=False, chunksize=1000)
+                df.to_sql('five_g', con=engine, if_exists='append', index=False, chunksize=1000)
 
                 count += result_count
                 total_tweets += result_count
@@ -142,7 +142,7 @@ for i in range(0, len(start_list)):
 
                 df = pd.DataFrame.from_dict(db_insert)
 
-                df.to_sql('machine_learning', con=engine, if_exists='append', index=False, chunksize=1000)
+                df.to_sql('five_g', con=engine, if_exists='append', index=False, chunksize=1000)
                 
                 count += result_count
                 total_tweets += result_count
